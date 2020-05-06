@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Lab1.Models.Data.TblHistoryError>
+@{
+    ViewBag.Title = "Index";
+}
+<div id="Grid">
+    <table cellpadding="5" cellspacing="0" style="border: 1px solid #ccc;font-size: 9pt;">
+        <tr>
+            <th style="background-color: #B8DBFD;border: 1px solid #ccc">ID</th>
+            <th style="background-color: #B8DBFD;border: 1px solid #ccc">CreateDate</th>
+            <th style="background-color: #B8DBFD;border: 1px solid #ccc">Val</th>
+        </tr>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td style="width:120px;border: 1px solid #ccc">@customer.ID</td>
+                <td style="width:120px;border: 1px solid #ccc">@customer.CreateDate</td>
+                <td style="width:120px;border: 1px solid #ccc">@customer.Val</td>
+            </tr>
+        }
+    </table>
+</div>
+<br />
+<br />
+@using (Html.BeginForm("Export", "Report", FormMethod.Post))
+{
+    <input type="hidden" name="GridHtml" />
+    <input type="submit" id="btnSubmit" value="Export" />
+}
+
+@using (Html.BeginForm("TmpReport", "Report"))
+{
+    <button id="submitButton" type="submit">Create Pdf</button>
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#btnSubmit").click(function () {
+                debugger
+                $("input[name='GridHtml']").val($("#Grid").html());
+            });
+        });
+    </script>
+}
+
